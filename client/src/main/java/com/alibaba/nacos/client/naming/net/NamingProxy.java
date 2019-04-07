@@ -320,8 +320,10 @@ public class NamingProxy {
         if (!curServer.contains(UtilAndComs.SERVER_ADDR_IP_SPLITER)) {
             curServer = curServer + UtilAndComs.SERVER_ADDR_IP_SPLITER + serverPort;
         }
-
-        url = HttpClient.getPrefix() + curServer + api;
+        if(!curServer.startsWith("http")) {
+        	curServer = HttpClient.getPrefix() + curServer;
+        }
+        url =  curServer + api;
 
         HttpClient.HttpResult result = HttpClient.request(url, headers, params, UtilAndComs.ENCODING, method);
         end = System.currentTimeMillis();
